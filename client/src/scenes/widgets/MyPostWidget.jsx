@@ -21,14 +21,18 @@ const MyPostWidget = () => {
 
 
   const handlePost = async () => {
-    const formData = new FormData();
-    formData.append("userId", _id);
-    formData.append("description", post);
+    // const formData = new FormData();
+    // formData.append("userId", _id);
+    // formData.append("description", post);
   
+    // console.log(formData)
     const response = await fetch(`http://localhost:8000/posts`, {
       method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
-      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: _id, description: post })
     });
     const posts = await response.json();
     console.log(posts)
